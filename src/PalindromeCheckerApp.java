@@ -1,3 +1,7 @@
+import java.util.LinkedList;
+import java.util.Stack;
+import java.util.Queue;
+
 /**
  * ============================================================
  * MAIN CLASS - UseCase1PalindromeApp
@@ -19,33 +23,39 @@
  * The goal is to establish a clear startup flow.
  *
  * @author Sourashis
- * @version 4.0
+ * @version 6.0
  */
 
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         System.out.println("WELCOME TO PALINDROME CHECKER APP MANAGEMENT SYSTEM");
-        System.out.println("version:4.0");
+        System.out.println("version:6.0");
         System.out.println("System instanced successful");
         System.out.println();
 
-        String Palindrome = "racecar";
+        String Palindrome = "racecar", ReversedQ = "", ReversedS = "";
         char[] chars = Palindrome.toCharArray();
+        Stack <Character> stack  = new Stack<>();
+        Queue <Character> queue = new LinkedList<>();
 
-        boolean flag = true;
-        int start = 0, end = Palindrome.length()-1;
+        int i = 0, n = chars.length;
 
-        while (start < end){
-            if(chars[start] != chars[end]){
-                flag = false;
-                break;
-            }
-            start ++;
-            end --;
+        for(char ch : chars){
+            stack.push(ch);
+            queue.add(ch);
         }
 
-        if (flag)  System.out.println("The string " + Palindrome + " is a palindrome.");
-        else System.out.println("The string " + Palindrome + " is not a palindrome.");
+        while (!queue.isEmpty() && !stack.empty()) {
+            ReversedQ += queue.remove();
+            ReversedS += stack.pop();
+        }
+
+        if (Palindrome.equals(ReversedS))
+            System.out.println("The Stack method worked.");
+        if (Palindrome.equals(ReversedQ))
+            System.out.println("The Queue method worked");
+        else
+            System.out.println("None of the methods worked");
     }
 }
